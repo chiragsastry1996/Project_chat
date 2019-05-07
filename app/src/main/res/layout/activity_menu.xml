@@ -34,7 +34,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="110dp"
-                android:src="@drawable/Cart"/>
+                android:src="@drawable/cart"/>
 
             <View
                 android:layout_width="match_parent"
@@ -49,7 +49,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="110dp"
-                android:src="@drawable/Orders"/>
+                android:src="@drawable/orders"/>
 
         </LinearLayout>
 
