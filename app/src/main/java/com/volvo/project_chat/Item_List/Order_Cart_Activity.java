@@ -121,11 +121,11 @@ public class Order_Cart_Activity extends AppCompatActivity {
 
                         JSONObject details = response.getJSONObject(i);
                         item_id = details.getString("id");
-                        if(key.equals("orders")){
-                            item_name = details.getString("Name") ;
-                        } else if(key.equals("cart")){
+//                        if(key.equals("orders")){
+//                            item_name = details.getString("Name") ;
+//                        } else if(key.equals("cart")){
                             item_name = details.getString("name") ;
-                        }
+//                        }
                         item_quantity = details.getString("quantity");
                         item_image = details.getString("img");
                         item_unit_price = details.getString("unitprice");
