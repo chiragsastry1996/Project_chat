@@ -79,6 +79,7 @@ public class Order_Cart_Adapter extends RecyclerView.Adapter<Order_Cart_Adapter.
                     holder.item_quantity.setText(String.valueOf(quantity_new));
                     int total_new = quantity_new*Integer.parseInt(order_cart_model.getUnit_price().toString());
                     holder.item_total_amount.setText(String.valueOf(total_new));
+                    order_cart_model.setQuantity(String.valueOf(quantity_new));
                     order_cart_model.setTotal_amount(String.valueOf(total_new));
                     Order_Cart_Activity.calculate_total_amount();
                 }
@@ -92,6 +93,7 @@ public class Order_Cart_Adapter extends RecyclerView.Adapter<Order_Cart_Adapter.
                     holder.item_quantity.setText(String.valueOf(quantity_new));
                     int total_new = quantity_new*Integer.parseInt(order_cart_model.getUnit_price().toString());
                     holder.item_total_amount.setText(String.valueOf(total_new));
+                    order_cart_model.setQuantity(String.valueOf(quantity_new));
                     order_cart_model.setTotal_amount(String.valueOf(total_new));
                     Order_Cart_Activity.calculate_total_amount();
                 }

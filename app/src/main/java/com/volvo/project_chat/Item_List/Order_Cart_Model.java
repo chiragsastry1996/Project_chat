@@ -52,4 +52,8 @@ public class Order_Cart_Model{
     public void setTotal_amount(String total_amount) {
         this.total_amount = total_amount;
     }
+
+    public void setQuantity(String quantity) {
+        this.quantity = quantity;
+    }
 }

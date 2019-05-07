@@ -16,11 +16,13 @@ import android.widget.TextView;
 import com.volvo.project_chat.Menu.MenuActivity;
 import com.volvo.project_chat.Utils.HttpHandler;
 import com.volvo.project_chat.R;
+import com.volvo.project_chat.Utils.RegisterUserClass;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Order_Cart_Activity extends AppCompatActivity {
@@ -32,6 +34,8 @@ public class Order_Cart_Activity extends AppCompatActivity {
     Button button_order;
     public static TextView total_amount;
     String key;
+
+    String REGISTER_URL = "https://teameovai.herokuapp.com/cart/update";
 
 
     @Override
@@ -60,8 +64,23 @@ public class Order_Cart_Activity extends AppCompatActivity {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setNestedScrollingEnabled(false);
 
-
         new GetList().execute();
+
+        button_order.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                for (int i=0;i<orderCartModelList.size(); i++) {
+                    String id = orderCartModelList.get(i).getId();
+                    String name = orderCartModelList.get(i).getName();
+                    String quantity = orderCartModelList.get(i).getQuantity();
+                    String img = orderCartModelList.get(i).getImage();
+                    String unit_price = orderCartModelList.get(i).getUnit_price();
+
+                    register(id, name, quantity, img, unit_price);
+
+                }
+            }
+        });
 
     }
 
@@ -120,12 +139,14 @@ public class Order_Cart_Activity extends AppCompatActivity {
                     for(int i=0;i<response.length();i++){
 
                         JSONObject details = response.getJSONObject(i);
-                        item_id = details.getString("id");
+
 //                        if(key.equals("orders")){
 //                            item_name = details.getString("Name") ;
 //                        } else if(key.equals("cart")){
-                            item_name = details.getString("name") ;
+//                            item_name = details.getString("name") ;
 //                        }
+                        item_id = details.getString("id");
+                        item_name = details.getString("name") ;
                         item_quantity = details.getString("quantity");
                         item_image = details.getString("img");
                         item_unit_price = details.getString("unitprice");
@@ -173,6 +194,48 @@ public class Order_Cart_Activity extends AppCompatActivity {
             recyclerView.setAdapter(order_cart_adapter);
         }
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /* POST REQUEST*/
+
+    private void register(String id, String name, String quantity, String img,String unitprice) {
+        class RegisterUser extends AsyncTask<String, Void, String> {
+            RegisterUserClass ruc = new RegisterUserClass();
+
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+//                Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            protected String doInBackground(String... params) {
+
+                HashMap<String, String> data = new HashMap<String, String>();
+                data.put("id", params[0]);
+                data.put("name", params[1]);
+                data.put("quantity", params[2]);
+                data.put("img", params[3]);
+                data.put("unitprice", params[4]);
+
+                String result = ruc.sendPostRequest(REGISTER_URL, data);
+
+                return result;
+            }
+        }
+
+        RegisterUser ru = new RegisterUser();
+        ru.execute(id, name, quantity, img, unitprice);
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
     @Override
     public void onBackPressed()
