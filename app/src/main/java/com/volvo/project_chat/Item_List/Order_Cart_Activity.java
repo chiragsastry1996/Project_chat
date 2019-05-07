@@ -77,7 +77,7 @@ public class Order_Cart_Activity extends AppCompatActivity {
     }
 
     public class GetList extends AsyncTask<Void, Void, Void> {
-        private static final String TAG = "PhoneActivity";
+        private static final String TAG = "Order_Cart_Activity";
         ArrayList<ArrayList<String>> detailLists = new ArrayList<>();
 
         @Override
